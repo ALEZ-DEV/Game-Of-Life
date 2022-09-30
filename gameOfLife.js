@@ -6,55 +6,64 @@ var gen = 0;
 var alive = "white";
 var dead = "black";
 
-var table = document.createElement("table");
-
-let altern = true;
-
-for (let i = 0; i < x; i++) {
-    let tr = document.createElement("tr");
-    let posY = [];
-
-    for (let j = 0; j < y; j++) {
-
-        let td = document.createElement("td");
-        td.style.width = "10px";
-        td.style.height = "10px";
-        td.style.padding = "0px";
-
-        td.classList.add(i.toString())
-        td.classList.add(j.toString())
-
-        if (altern) {
-            td.style.backgroundColor = alive;
-        } else {
-            td.style.backgroundColor = dead;
-        }
-        altern = !altern;
-        posY.push(false);
-
-        tr.appendChild(td);
-    }
-    pos.push(posY);
-
-    altern = !altern;
-
-    table.appendChild(tr);
-
-}
-
-$("body")[0].appendChild(table);
-
+createTable(x, y);
 pattern();
 refresh();
 
-setInterval(function() {
-    //calcule();
-}, 1250)
+function play(time) {
+    setInterval(function() {
+        calcule();
+        refresh();
+    }, time)
+}
 
-setInterval(function() {
-    calcule();
-    refresh();
-}, 500)
+function stop() {
+    setInterval(function() {
+        //none    
+    }, 100);
+}
+
+function createTable(x, y) {
+    pos = [];
+
+    var table = document.createElement("table");
+
+    let altern = true;
+
+    for (let i = 0; i < x; i++) {
+        let tr = document.createElement("tr");
+        let posY = [];
+
+        for (let j = 0; j < y; j++) {
+
+            let td = document.createElement("td");
+            td.style.width = "10px";
+            td.style.height = "10px";
+            td.style.padding = "0px";
+
+            td.classList.add("dead");
+
+            if (altern) {
+                td.style.backgroundColor = alive;
+            } else {
+                td.style.backgroundColor = dead;
+            }
+            altern = !altern;
+            posY.push(false);
+
+            tr.appendChild(td);
+        }
+        pos.push(posY);
+
+        altern = !altern;
+
+        table.appendChild(tr);
+
+    }
+
+    $("body")[0].appendChild(table);
+
+}
 
 function calcule() {
     
@@ -91,8 +100,12 @@ function refresh() {
             let td = $("td")[i * x + j]
             if (pos[i][j]) {
                 td.style.backgroundColor = alive;
+                td.classList.remove("dead");
+                td.classList.add("alive");
             } else {
                 td.style.backgroundColor = dead;
+                td.classList.remove("alive");
+                td.classList.add("dead");
             }
         }
     }
@@ -160,50 +173,50 @@ function pattern() {
 
         let deplace = 3;
 
-        pos[0][25 + deplace] = true;
+        //pos[0][25 + deplace] = true;
         
-        pos[1][23 + deplace] = true;
-        pos[1][25 + deplace] = true;
+        //pos[1][23 + deplace] = true;
+        //pos[1][25 + deplace] = true;
 
-        pos[2][13 + deplace] = true;
-        pos[2][14 + deplace] = true;
-        pos[2][21 + deplace] = true;
-        pos[2][22 + deplace] = true;
-        pos[2][35 + deplace] = true;
-        pos[2][36 + deplace] = true;
+        //pos[2][13 + deplace] = true;
+        //pos[2][14 + deplace] = true;
+        //pos[2][21 + deplace] = true;
+        //pos[2][22 + deplace] = true;
+        //pos[2][35 + deplace] = true;
+        //pos[2][36 + deplace] = true;
 
-        pos[3][12 + deplace] = true;
-        pos[3][16 + deplace] = true;
-        pos[3][21 + deplace] = true;
-        pos[3][22 + deplace] = true;
-        pos[3][35 + deplace] = true;
-        pos[3][36 + deplace] = true;
+        //pos[3][12 + deplace] = true;
+        //pos[3][16 + deplace] = true;
+        //pos[3][21 + deplace] = true;
+        //pos[3][22 + deplace] = true;
+        //pos[3][35 + deplace] = true;
+        //pos[3][36 + deplace] = true;
 
-        pos[4][1 + deplace] = true;
-        pos[4][2 + deplace] = true;
-        pos[4][11 + deplace] = true;
-        pos[4][17 + deplace] = true;
-        pos[4][21 + deplace] = true;
-        pos[4][22 + deplace] = true;
+        //pos[4][1 + deplace] = true;
+        //pos[4][2 + deplace] = true;
+        //pos[4][11 + deplace] = true;
+        //pos[4][17 + deplace] = true;
+        //pos[4][21 + deplace] = true;
+        //pos[4][22 + deplace] = true;
 
-        pos[5][1 + deplace] = true;
-        pos[5][2 + deplace] = true;
-        pos[5][11 + deplace] = true;
-        pos[5][15 + deplace] = true;
-        pos[5][17 + deplace] = true;
-        pos[5][18 + deplace] = true;
-        pos[5][23 + deplace] = true;
-        pos[5][25 + deplace] = true;
+        //pos[5][1 + deplace] = true;
+        //pos[5][2 + deplace] = true;
+        //pos[5][11 + deplace] = true;
+        //pos[5][15 + deplace] = true;
+        //pos[5][17 + deplace] = true;
+        //pos[5][18 + deplace] = true;
+        //pos[5][23 + deplace] = true;
+        //pos[5][25 + deplace] = true;
 
-        pos[6][11 + deplace] = true;
-        pos[6][17 + deplace] = true;
-        pos[6][25 + deplace] = true;
+        //pos[6][11 + deplace] = true;
+        //pos[6][17 + deplace] = true;
+        //pos[6][25 + deplace] = true;
 
-        pos[7][12  + deplace] = true;
-        pos[7][16  + deplace] = true;
+        //pos[7][12  + deplace] = true;
+        //pos[7][16  + deplace] = true;
 
-        pos[8][13  + deplace] = true;
-        pos[8][14  + deplace] = true;
+        //pos[8][13  + deplace] = true;
+        //pos[8][14  + deplace] = true;
 
     
     //random

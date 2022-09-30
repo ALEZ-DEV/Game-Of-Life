@@ -1,0 +1,10 @@
+div {
+    float: right;
+    width: 20%;
+    height: 200px;
+    background-color: rgb(85, 85, 85);
+}
+
+div button {
+    margin-left: 0px;
+}
