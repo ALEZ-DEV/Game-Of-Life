@@ -3,8 +3,8 @@ var y = 50;
 var pos = [];
 var gen = 0;
 
-var alive = "white";
-var dead = "black";
+//var alive = "white";
+//var dead = "black";
 
 var currentRun;
 
@@ -60,9 +60,9 @@ function createTable(x, y) {
             td.classList.add("dead");
 
             if (altern) {
-                td.style.backgroundColor = alive;
+                //td.style.backgroundColor = alive;
             } else {
-                td.style.backgroundColor = dead;
+                //td.style.backgroundColor = dead;
             }
             altern = !altern;
             posY.push(false);
@@ -115,11 +115,11 @@ function refresh() {
         for (let j = 0; j < y; j++) {
             let td = $("td")[i * x + j]
             if (pos[i][j]) {
-                td.style.backgroundColor = alive;
+                //td.style.backgroundColor = alive;
                 td.classList.remove("dead");
                 td.classList.add("alive");
             } else {
-                td.style.backgroundColor = dead;
+                //td.style.backgroundColor = dead;
                 td.classList.remove("alive");
                 td.classList.add("dead");
             }
