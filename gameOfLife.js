@@ -6,21 +6,37 @@ var gen = 0;
 var alive = "white";
 var dead = "black";
 
+var currentRun;
+
 createTable(x, y);
-pattern();
+pattern("random");
 refresh();
 
+function next() {
+    calcule();
+    refresh();
+}
+
 function play(time) {
-    setInterval(function() {
+    currentRun = setInterval(function() {
         calcule();
         refresh();
     }, time)
 }
 
 function stop() {
-    setInterval(function() {
-        //none    
-    }, 100);
+    clearInterval(currentRun);
+}
+
+function reset() {
+    for (let i = 0; i < x; i++) {
+        for (let j = 0; j < y; j++) {
+            pos[i][j] = false;
+        }
+    }
+    refresh();
+    gen = 0;
+    $("h2").html("generation : -")
 }
 
 function createTable(x, y) {
@@ -137,95 +153,135 @@ function getAllNeighborOf(xCurrent, yCurrent, posCurrent) {
 
 }
 
-function pattern() {
-    //oscillateur
-        //pos[0][1] = true;
-        //pos[1][1] = true;
-        //pos[2][1] = true;
+function pattern(args) {
 
-    //la grenouille
-        //pos[1][0] = true;
-        //pos[2][0] = true;
-        //pos[3][1] = true;
+    //parse for get the command
+    var command = "";
+    var par = "";
+    var isNotCommand = false;
+    for (let i = 0; i < args.length; i++) {
+        if (isNotCommand) {
+            par += args.charAt(i);
+        } else {
+            command += args.charAt(i);
+        }
+        if (args.charAt(i) == " ") {
+            isNotCommand = true;
+        }
+    }
+    console.log(command);
+    console.log(par);
 
-        //pos[0][2] = true;
-        //pos[1][3] = true;
-        //pos[2][3] = true;
+    //parse the text for get parameter
+    var parameterList = [];
 
-    //spaceship : LWSS
-        //pos[1][0] = true;
-        //pos[1][3] = true;
+    var isArg = false;
+    var str = "";
+    for (let i = 0; i < par.length; i++) {
+        if (isArg) {
+            str += par.charAt(i);
+            console.log(str);
+        }
+        if (par.charAt(i) == "-") {
+            isArg = true;
+        }
+        if (par.charAt(i) == " ") {
+            isArg = false;
+            parameterList.push(str);
+            str = "";
+        }
+    }
 
-        //pos[2][4] = true;
+    console.log(parameterList);
 
-        //pos[3][0] = true;
-        //pos[3][4] = true;
+    //default pattern
 
-        //pos[4][1] = true;
-        //pos[4][2] = true;
-        //pos[4][3] = true;
-        //pos[4][4] = true;
+    if (command == "frog") {
+        pos[1][0] = true;
+        pos[2][0] = true;
+        pos[3][1] = true;
 
+        pos[0][2] = true;
+        pos[1][3] = true;
+        pos[2][3] = true;
+    }
+
+    if (command == "lwss") {
+        pos[1][0] = true;
+        pos[1][3] = true;
+
+        pos[2][4] = true;
+
+        pos[3][0] = true;
+        pos[3][4] = true;
+
+        pos[4][1] = true;
+        pos[4][2] = true;
+        pos[4][3] = true;
+        pos[4][4] = true;
+    }
 
 
     
-    //canon
+    if (command == "canon") {
 
         let deplace = 3;
 
-        //pos[0][25 + deplace] = true;
+        pos[0][25 + deplace] = true;
         
-        //pos[1][23 + deplace] = true;
-        //pos[1][25 + deplace] = true;
+        pos[1][23 + deplace] = true;
+        pos[1][25 + deplace] = true;
 
-        //pos[2][13 + deplace] = true;
-        //pos[2][14 + deplace] = true;
-        //pos[2][21 + deplace] = true;
-        //pos[2][22 + deplace] = true;
-        //pos[2][35 + deplace] = true;
-        //pos[2][36 + deplace] = true;
+        pos[2][13 + deplace] = true;
+        pos[2][14 + deplace] = true;
+        pos[2][21 + deplace] = true;
+        pos[2][22 + deplace] = true;
+        pos[2][35 + deplace] = true;
+        pos[2][36 + deplace] = true;
 
-        //pos[3][12 + deplace] = true;
-        //pos[3][16 + deplace] = true;
-        //pos[3][21 + deplace] = true;
-        //pos[3][22 + deplace] = true;
-        //pos[3][35 + deplace] = true;
-        //pos[3][36 + deplace] = true;
+        pos[3][12 + deplace] = true;
+        pos[3][16 + deplace] = true;
+        pos[3][21 + deplace] = true;
+        pos[3][22 + deplace] = true;
+        pos[3][35 + deplace] = true;
+        pos[3][36 + deplace] = true;
 
-        //pos[4][1 + deplace] = true;
-        //pos[4][2 + deplace] = true;
-        //pos[4][11 + deplace] = true;
-        //pos[4][17 + deplace] = true;
-        //pos[4][21 + deplace] = true;
-        //pos[4][22 + deplace] = true;
+        pos[4][1 + deplace] = true;
+        pos[4][2 + deplace] = true;
+        pos[4][11 + deplace] = true;
+        pos[4][17 + deplace] = true;
+        pos[4][21 + deplace] = true;
+        pos[4][22 + deplace] = true;
 
-        //pos[5][1 + deplace] = true;
-        //pos[5][2 + deplace] = true;
-        //pos[5][11 + deplace] = true;
-        //pos[5][15 + deplace] = true;
-        //pos[5][17 + deplace] = true;
-        //pos[5][18 + deplace] = true;
-        //pos[5][23 + deplace] = true;
-        //pos[5][25 + deplace] = true;
+        pos[5][1 + deplace] = true;
+        pos[5][2 + deplace] = true;
+        pos[5][11 + deplace] = true;
+        pos[5][15 + deplace] = true;
+        pos[5][17 + deplace] = true;
+        pos[5][18 + deplace] = true;
+        pos[5][23 + deplace] = true;
+        pos[5][25 + deplace] = true;
 
-        //pos[6][11 + deplace] = true;
-        //pos[6][17 + deplace] = true;
-        //pos[6][25 + deplace] = true;
+        pos[6][11 + deplace] = true;
+        pos[6][17 + deplace] = true;
+        pos[6][25 + deplace] = true;
 
-        //pos[7][12  + deplace] = true;
-        //pos[7][16  + deplace] = true;
+        pos[7][12  + deplace] = true;
+        pos[7][16  + deplace] = true;
 
-        //pos[8][13  + deplace] = true;
-        //pos[8][14  + deplace] = true;
+        pos[8][13  + deplace] = true;
+        pos[8][14  + deplace] = true;
 
-    
-    //random
-        //for (let i = 0; i < x; i++) {
-        //    for (let j = 0; j < y; j++) {
-        //        let nb = Math.floor(Math.random() * 100);
-        //        if (nb > 50) {
-        //            pos[i][j] = true;
-        //        }
-        //    }
-        //}
+    }
+
+    if (command == "random") {
+        for (let i = 0; i < x; i++) {
+            for (let j = 0; j < y; j++) {
+                let nb = Math.floor(Math.random() * 100);
+                if (nb > 50) {
+                    pos[i][j] = true;
+                }
+            }
+        }
+    }
 }

@@ -5,15 +5,27 @@
         <title>Game Of Life</title>
         <link id="stylesheet" rel="stylesheet" href="style-night.css">
         <link rel="stylesheet" href="style-div.css">
+        <link rel="stylesheet" href="style-base.css">
     </head>
     <body>
         <h2>generation : -</h2>
-        <button onclick="setShowStyle()">toggle</button>
         <div>
-            <button onclick="" class="settings">next</button>
-            <button onclick="" class="settings">play</button>
+            Time :
             <br>
-            <input type="text">
+            <button id="next" onclick="next()" class="settings">next</button>
+            <button id="play" onclick="setPlay()" class="settings">play</button>
+            <button id="reset" onclick="reset()" class="settings">reset</button>
+            <br>
+            <input id="interval" type="number" placeholder="intervale in ms (default 100ms)">
+            <hr>
+            Generation parameter:
+            <br>
+            <input id="args" type="text" placeholder="enter args to change generation">
+            <button id="send" onclick="sendArgs()" class="settings">send</button>
+            <hr>
+            Style :
+            <br>
+            <button onclick="setShowStyle()">toggle</button>
         </div>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="gameOfLife.js"></script>

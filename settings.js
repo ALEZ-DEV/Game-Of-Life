@@ -7,15 +7,30 @@ function setShowStyle() {
     } else {
         $("#stylesheet").attr("href", "style-night.css");
     }
-    console.log("test");
 };
 
 var isPlaying = false;
 
 function setPlay() {
     if (!isPlaying) {
-        play();
+        if ($("#interval").val() == "") {
+            play(100);
+        } else {
+            play(parseInt($("#interval").val()));
+        }
+        $("#play").html("stop");
+        $("#next").prop("disabled", true);
+        $("#interval").prop("disabled", true);
     } else {
         stop();
+        $("#play").html("play");
+        $("#next").prop("disabled", false);
+        $("#interval").prop("disabled", false);
     }
+    isPlaying = !isPlaying;
+}
+
+function sendArgs() {
+    pattern($("#args").val());
+    refresh();
 }
